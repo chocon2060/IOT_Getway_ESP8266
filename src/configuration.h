@@ -7,7 +7,7 @@
     const char* mqtt_server = "test.mosquitto.org";
     const char* topic_pub = "HOME/client";
     const char* topic_sub = "HOME/sever";
-    const uint16_t port = 1883;
+    const uint16_t port = 1883;  // port number for mqtt server
 
     #define BUILTIN_LED 2       // config led wifi status
 
