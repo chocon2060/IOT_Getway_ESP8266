@@ -34,24 +34,12 @@ void setup_wifi() {
 }
 
 void callback(char* topic, byte* payload, unsigned int length) {
-  uint8_t lastpoint = 0;
-  uint8_t nextpoint = 0;
-  String msgpayload= "";
-  String msgCRC = "";
   String strmsg = (char*)payload;
-
-  lastpoint = strmsg.indexOf("{");
-  nextpoint = strmsg.indexOf("}") + 1;
-  msgpayload = strmsg.substring(lastpoint,nextpoint);
-  Serial.println(msgpayload);
-
-  lastpoint = strmsg.indexOf("[") + 1;
-  nextpoint = strmsg.indexOf("]");
-  msgCRC = strmsg.substring(lastpoint,nextpoint);
-  Serial.println(msgCRC);
-
-  uint32_t crc32 = strtol(msgCRC.c_str(),0,16);
-  Serial.println(crc.check(msgpayload.c_str(),msgpayload.length(),crc32));
+  Serial.println(crc.strCheckCrc(strmsg));
+  Serial.println(crc.getStrmsg());
+  crc.deleteStrmsg();
+  Serial.println("have delete");
+  Serial.println(crc.getStrmsg());
 }
 
 void reconnect() {

@@ -1,4 +1,5 @@
 #include "CRC32.h"
+
 void crc32::setPolynomial(uint32_t poly){
     polynomial = poly;
 }
@@ -20,6 +21,7 @@ uint32_t crc32::calculator(const char *input, uint16_t lenght){
     }
     return ~crc32;
 }
+
 bool crc32::check(const char *playload_input, uint16_t playload_lenght, uint32_t crc32){
     uint32_t crc32_cal = crc32::calculator(playload_input, playload_lenght);
     if (crc32_cal == crc32)
@@ -30,4 +32,38 @@ bool crc32::check(const char *playload_input, uint16_t playload_lenght, uint32_t
     {
         return false;
     }
+}
+
+bool crc32::strCheckCrc(String msgpayload){
+    bool crcCheckStatus = false;
+    uint8_t lastpoint = 0;
+    uint8_t nextpoint = 0;
+    String msgCRC = "";
+
+    lastpoint = msgpayload.indexOf("{");
+    nextpoint = msgpayload.indexOf("}") + 1;
+    strmsg = msgpayload.substring(lastpoint,nextpoint);
+
+    lastpoint = msgpayload.indexOf("[") + 1;
+    nextpoint = msgpayload.indexOf("]");
+
+    msgCRC = msgpayload.substring(lastpoint,nextpoint);
+
+    uint32_t crc32 = strtol(msgCRC.c_str(),0,16);
+
+    crcCheckStatus = crc32::check(strmsg.c_str(),strmsg.length(),crc32);
+
+    if(!crcCheckStatus)
+    {
+        crc32::deleteStrmsg();
+    }
+    return crcCheckStatus;
+}
+
+String crc32::getStrmsg(){
+    return strmsg;
+}
+
+void crc32::deleteStrmsg(){
+    strmsg ="";
 }
