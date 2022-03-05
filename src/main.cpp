@@ -35,11 +35,11 @@ void setup_wifi() {
 
 void callback(char* topic, byte* payload, unsigned int length) {
   String strmsg = (char*)payload;
-  Serial.println(crc.strCheckCrc(strmsg));
-  Serial.println(crc.getStrmsg());
+  // Serial.println(crc.strCheckCrc(strmsg));
+  // Serial.println(crc.getStrmsg());
   crc.deleteStrmsg();
-  Serial.println("have delete");
-  Serial.println(crc.getStrmsg());
+  // Serial.println("have delete");
+  // Serial.println(crc.getStrmsg());
 }
 
 void reconnect() {
