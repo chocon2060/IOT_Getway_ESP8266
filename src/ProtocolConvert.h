@@ -3,7 +3,7 @@
 #include <stdint.h>
 #include <Arduino.h>
 #include"configuration.h"
-#include"CRC32.h"
+// #include"CRC32.h"
 class ProtocolConvert {  
     private:
         uint8_t loraMsg[50];
@@ -17,7 +17,7 @@ class ProtocolConvert {
         void serverClientCmd(String msgPayload);
         void serverGetwayCmd(String msgPayload);
         bool isNumber(String str);
-        void ProtocolConverError(String Error);
+        // void ProtocolConverError(String Error);
         
 };
 #endif

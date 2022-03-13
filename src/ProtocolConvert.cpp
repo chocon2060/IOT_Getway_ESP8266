@@ -27,7 +27,7 @@ void ProtocolConvert::serverClientCmd(String msgPayload){
     payloadSub[1] = payloadSub[0].substring(lastpoint,nextpoint);
     // check string is number 
     if(!ProtocolConvert::isNumber( payloadSub[1])){
-        return;
+        // return;
     }
 }
 
@@ -41,10 +41,10 @@ bool ProtocolConvert::isNumber(String str){
     }
     return true;    
 }
-void ProtocolConvert::ProtocolConverError(String Error){
-    // String strError = '{' + '"' + "Gateway" + ':' + '1' + ',' + '"' + "Error" + '"' + ':' + '"' + Error + '"' + '}';
+// void ProtocolConvert::ProtocolConverError(String Error){
+//     // String strError = '{' + '"' + "Gateway" + ':' + '1' + ',' + '"' + "Error" + '"' + ':' + '"' + Error + '"' + '}';
 
-    // uint32_t crcError = crc.calculator(strError.c_str(),strError.length());
-    // strError = strError + '[' + String(Crc32,HEX); + ']';
-    // client.publish(topic_pub, strError.c_str());
-}
+//     // uint32_t crcError = crc.calculator(strError.c_str(),strError.length());
+//     // strError = strError + '[' + String(Crc32,HEX); + ']';
+//     // client.publish(topic_pub, strError.c_str());
+// }
