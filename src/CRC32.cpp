@@ -40,19 +40,18 @@ bool crc32::strCheckCrc(String msgpayload){
     uint8_t nextpoint = 0;
     String msgCRC = "";
 
-    lastpoint = msgpayload.indexOf("{");
-    nextpoint = msgpayload.indexOf("}") + 1;
-    strmsg = msgpayload.substring(lastpoint,nextpoint);
+    
 
     lastpoint = msgpayload.indexOf("[") + 1;
     nextpoint = msgpayload.indexOf("]");
 
     msgCRC = msgpayload.substring(lastpoint,nextpoint);
-
-    uint32_t crc32 = strtol(msgCRC.c_str(),0,16);
-
+    lastpoint = msgpayload.indexOf("{");
+    nextpoint = msgpayload.indexOf("}") + 2;
+    strmsg = msgpayload.substring(lastpoint,nextpoint);
+    uint32_t crc32 = strtoul(msgCRC.c_str(),nullptr,16);
     crcCheckStatus = crc32::check(strmsg.c_str(),strmsg.length(),crc32);
-
+    
     if(!crcCheckStatus)
     {
         crc32::deleteStrmsg();

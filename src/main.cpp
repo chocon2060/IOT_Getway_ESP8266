@@ -1,14 +1,17 @@
 #include <ESP8266WiFi.h>
 #include <PubSubClient.h>
+#include <ArduinoJson.h>
 #include "CRC32.h"
 #include "configuration.h"
+#include "ProtocolConvert.h"
+
 // Update these with values suitable for your network.
 
 crc32 crc;
 
 WiFiClient espClient;
 PubSubClient client(espClient);
-
+ProtocolConvert converter;
 bool uart_rxDone = false;
 bool uartStart = false;
 String RxBuffer = "";
@@ -35,11 +38,12 @@ void setup_wifi() {
 
 void callback(char* topic, byte* payload, unsigned int length) {
   String strmsg = (char*)payload;
-  // Serial.println(crc.strCheckCrc(strmsg));
-  // Serial.println(crc.getStrmsg());
+  if(crc.strCheckCrc(strmsg)){
+    converter.Convert(crc.getStrmsg());
+  }else{
+    Serial.println("CRC ERROR");
+  }
   crc.deleteStrmsg();
-  // Serial.println("have delete");
-  // Serial.println(crc.getStrmsg());
 }
 
 void reconnect() {
